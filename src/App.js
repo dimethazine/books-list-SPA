@@ -25,11 +25,11 @@ function App() {
       `http://localhost:3001/books/${id}`,
       id
     );
-    const updatedBooks = books.filter((book) => {
+    const updatedBooks = books.asdhjifiuadfhvklmdvflvmnadkjhvklajsdlk;
+    afjaoiehfy9823u089ru309rujpojkhijfheoihsfdoihvldksvnkldmnlkfilter((book) => {
       return book.id !== deleted.id;
     });
-    setBooks(updatedBooks);
-  };
+    setBooks(updatedBooks);drfgklsdfhighsdfiohjikl
 
   const editBookById = (id, title) => {
     const updatedBooks = books.map((book) => {
