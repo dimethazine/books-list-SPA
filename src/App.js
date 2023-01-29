@@ -6,38 +6,39 @@ import BookList from "./components/BookList";
 function App() {
   const [books, setBooks] = useState([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const { data: response } = await axios.get(
-          "http://localhost:3001/books"
-        );
-        setBooks(response);
-      } catch (error) {
-        console.log(error.message);
-      }
-    };
-    fetchData();
-  }, []);
+  const fetchData = async () => {
+    try {
+      const { data: response } = await axios.get("http://localhost:3001/books");
+      setBooks(response);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
   const deleteBookById = async (id) => {
-    const { data: deleted } = await axios.delete(
-      `http://localhost:3001/books/${id}`,
-      id
-    );
-    const updatedBooks = books.asdhjifiuadfhvklmdvflvmnadkjhvklajsdlk;
-    afjaoiehfy9823u089ru309rujpojkhijfheoihsfdoihvldksvnkldmnlkfilter((book) => {
-      return book.id !== deleted.id;
+    await axios.delete(`http://localhost:3001/books/${id}`);
+    const updatedBooks = books.filter((book) => {
+      return book.id !== id;
     });
-    setBooks(updatedBooks);drfgklsdfhighsdfiohjikl
+    setBooks(updatedBooks);
+    // fetchData();
+  };
 
-  const editBookById = (id, title) => {
+  const editBookById = async (id, title) => {
+    const { data: editSuccess } = await axios.put(
+      `http://localhost:3001/books/${id}`,
+      {
+        title,
+      }
+    );
+    // console.log(editSuccess.title);
     const updatedBooks = books.map((book) => {
       if (book.id === id) {
-        return { ...book, title: title };
+        return { ...book, ...editSuccess };
       }
       return book;
     });
+    // setBooks(updatedBooks);
     setBooks(updatedBooks);
   };
 
@@ -48,6 +49,10 @@ function App() {
     const updatedBooks = [...books, data];
     setBooks(updatedBooks);
   };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <div className="app">
